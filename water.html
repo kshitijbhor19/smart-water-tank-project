@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Water Tank</title>
+</head>
+
+<body style="font-family:Arial;background:#e8f4ff;text-align:center;">
+
+<h1 style="margin-top:20px;">Smart Water Tank System</h1>
+
+<div style="display:flex;justify-content:center;gap:60px;margin-top:40px;flex-wrap:wrap;">
+
+<!-- Tank -->
+
+<div>
+
+<div style="width:200px;height:320px;border:6px solid #333;border-radius:10px;overflow:hidden;position:relative;background:white;margin:auto;">
+
+<div id="water" style="position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(#00c6ff,#0072ff);transition:1s;"></div>
+
+</div>
+
+<h2 id="level">40%</h2>
+
+</div>
+
+<!-- Controls -->
+
+<div>
+
+<h2>Motor Status: <span id="motor">OFF</span></h2>
+
+<button onclick="motorOn()" style="padding:12px 25px;font-size:18px;background:#28a745;color:white;border:none;border-radius:6px;margin:10px;cursor:pointer;">
+Motor ON
+</button>
+
+<button onclick="motorOff()" style="padding:12px 25px;font-size:18px;background:#dc3545;color:white;border:none;border-radius:6px;margin:10px;cursor:pointer;">
+Motor OFF
+</button>
+
+<div style="margin-top:20px;font-size:20px;">
+
+<p>Inlet Pressure: <span id="inlet">0</span> PSI</p>
+<p>Outlet Pressure: <span id="outlet">0</span> PSI</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let level = 40
+let motor = false
+
+function updateSystem(){
+
+document.getElementById("water").style.height = level + "%"
+document.getElementById("level").innerText = level + "%"
+document.getElementById("motor").innerText = motor ? "ON" : "OFF"
+
+document.getElementById("inlet").innerText = (Math.random()*5+10).toFixed(1)
+document.getElementById("outlet").innerText = (Math.random()*4+6).toFixed(1)
+
+if(level <= 20){
+motor = true
+}
+
+if(level >= 100){
+motor = false
+alert("Tank Full - Motor OFF")
+}
+
+if(motor && level < 100){
+level += 2
+}
+
+if(!motor && level > 0){
+level -= 0.3
+}
+
+}
+
+function motorOn(){
+motor = true
+}
+
+function motorOff(){
+motor = false
+}
+
+setInterval(updateSystem,1000)
+
+</script>
+
+</body>
+</html>
